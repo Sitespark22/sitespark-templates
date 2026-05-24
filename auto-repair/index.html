@@ -8,3 +8,685 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', sans-serif;
+      --font-body: '{{FONT_BODY}}', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: var(--color-primary);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
+    nav {
+      background: var(--color-primary);
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-logo img { height: 42px; width: auto; }
+
+    .nav-logo-text {
+      font-family: var(--font-heading);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-hours {
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      display: none;
+    }
+
+    @media (min-width: 768px) { .nav-hours { display: block; } }
+
+    .nav-phone {
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: opacity .2s;
+    }
+    .nav-phone:hover { opacity: .88; }
+
+    /* HERO */
+    .hero {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      min-height: 560px;
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 60px 5%; min-height: auto; }
+      .hero-img-col { display: none; }
+    }
+
+    .hero-content { padding: 60px 0; }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: .9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 3px;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--color-secondary);
+    }
+
+    .hero-subtext {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.75);
+      max-width: 460px;
+      margin-bottom: 36px;
+    }
+
+    /* OVERSIZED PHONE CTA */
+    .phone-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--color-secondary);
+      color: #fff;
+      padding: 18px 32px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      transition: opacity .2s;
+    }
+    .phone-cta:hover { opacity: .88; }
+
+    .phone-cta-icon {
+      background: rgba(255,255,255,.2);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .phone-cta-text small {
+      display: block;
+      font-size: .75rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      opacity: .8;
+      text-transform: uppercase;
+    }
+
+    .phone-cta-text strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.9rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+
+    .btn-outline-red {
+      border: 2px solid rgba(255,255,255,.3);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 14px 24px;
+      border-radius: 4px;
+      display: inline-block;
+      transition: border-color .2s;
+    }
+    .btn-outline-red:hover { border-color: var(--color-secondary); }
+
+    .hero-img-col .img-placeholder {
+      height: 100%;
+      min-height: 400px;
+      background: #3a3a3a;
+      border-radius: 0;
+      color: #666;
+    }
+
+    /* TRUST BAR */
+    .trust-bar {
+      background: var(--color-secondary);
+      padding: 18px 5%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      letter-spacing: .5px;
+    }
+
+    /* SERVICES */
+    .services {
+      padding: 80px 5%;
+      background: #fff;
+    }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: .85rem;
+      letter-spacing: 4px;
+      color: var(--color-secondary);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      color: var(--color-primary);
+      line-height: 1.1;
+      letter-spacing: 1px;
+      margin-bottom: 48px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .service-card {
+      border: 2px solid #e8e8e8;
+      border-radius: 8px;
+      padding: 28px 24px;
+      transition: border-color .2s, transform .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card:hover { border-color: var(--color-secondary); transform: translateY(-2px); }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--color-secondary);
+      opacity: 0;
+      transition: opacity .2s;
+    }
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon { font-size: 2rem; margin-bottom: 14px; }
+
+    .service-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      letter-spacing: .5px;
+    }
+
+    .service-card p { font-size: .88rem; color: #666; line-height: 1.7; }
+
+    /* WHY TRUST US */
+    .trust {
+      padding: 80px 5%;
+      background: var(--color-primary);
+      color: #fff;
+    }
+
+    .trust .section-label { color: var(--color-secondary); }
+    .trust .section-title { color: #fff; }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .trust-grid { grid-template-columns: 1fr; gap: 28px; }
+    }
+
+    .trust-point { text-align: center; }
+
+    .trust-point-number {
+      width: 70px;
+      height: 70px;
+      border: 3px solid var(--color-secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--color-secondary);
+    }
+
+    .trust-point h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      margin-bottom: 10px;
+    }
+
+    .trust-point p { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; }
+
+    /* APPOINTMENT CTA */
+    .appointment {
+      padding: 80px 5%;
+      background: var(--color-bg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .appointment { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .appointment-text .section-title { margin-bottom: 16px; }
+    .appointment-text p { color: #555; margin-bottom: 24px; }
+
+    .appointment-text .btn-red {
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 15px 32px;
+      border-radius: 4px;
+      display: inline-block;
+      transition: opacity .2s;
+    }
+    .appointment-text .btn-red:hover { opacity: .88; }
+
+    .hours-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 36px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.08);
+      border-top: 4px solid var(--color-secondary);
+    }
+
+    .hours-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: .5px;
+    }
+
+    .hours-table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    .hours-table td { padding: 9px 0; border-bottom: 1px solid #f0f0f0; }
+    .hours-table td:last-child { text-align: right; font-weight: 700; }
+    .hours-table tr:last-child td { border-bottom: none; }
+
+    /* REVIEWS */
+    .reviews {
+      padding: 80px 5%;
+      background: #fff;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .review-card {
+      background: var(--color-bg);
+      border-radius: 8px;
+      padding: 28px;
+      border-left: 4px solid var(--color-secondary);
+    }
+
+    .review-stars { color: #f5a623; font-size: 1rem; margin-bottom: 12px; }
+    .review-text { font-size: .93rem; color: #555; line-height: 1.75; margin-bottom: 16px; font-style: italic; }
+    .review-author { font-weight: 700; font-size: .88rem; color: var(--color-primary); }
+    .review-service { font-size: .8rem; color: #999; }
+
+    /* ABOUT */
+    .about {
+      padding: 80px 5%;
+      background: var(--color-bg);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .about { grid-template-columns: 1fr; }
+    }
+
+    .img-placeholder {
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 13px;
+      min-height: 200px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #111;
+      color: rgba(255,255,255,.65);
+      padding: 60px 5% 28px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    .footer-brand h2 {
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p { font-size: .9rem; line-height: 1.7; margin-bottom: 20px; }
+
+    .footer-social { display: flex; gap: 10px; }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,.1);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      transition: background .2s;
+    }
+    .social-link:hover { background: var(--color-secondary); }
+
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { font-size: .88rem; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--color-secondary); }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      font-size: .88rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 22px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text" style="display:none">{{BUSINESS_NAME}}</span>
+    </div>
+    <div class="nav-right">
+      <span class="nav-hours">Mon–Fri 7am–6pm · Sat 8am–4pm</span>
+      <a href="tel:{{PHONE}}" class="nav-phone">📞 {{PHONE}}</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">{{TAGLINE}}</span>
+      <h1>{{HERO_HEADLINE}}<br><em>Fast &amp; Right.</em></h1>
+      <p class="hero-subtext">{{HERO_SUBTEXT}}</p>
+      <div class="hero-ctas">
+        <a href="tel:{{PHONE}}" class="phone-cta">
+          <div class="phone-cta-icon">📞</div>
+          <div class="phone-cta-text">
+            <small>Call Us Anytime</small>
+            <strong>{{PHONE}}</strong>
+          </div>
+        </a>
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-outline-red">{{CTA_PRIMARY_TEXT}}</a>
+      </div>
+    </div>
+    <div class="hero-img-col">
+      <div class="img-placeholder" style="min-height:560px; background:#1e1e1e; color:#555; border-radius:0;">Shop / Bay Photo</div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-item">✔ ASE Certified Technicians</div>
+    <div class="trust-item">✔ Free Diagnostics</div>
+    <div class="trust-item">✔ 12-Month Warranty</div>
+    <div class="trust-item">✔ All Makes &amp; Models</div>
+    <div class="trust-item">✔ No Hidden Fees</div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services">
+    <div class="section-label">What We Fix</div>
+    <h2 class="section-title">Auto Repair Services</h2>
+    <div class="services-grid">
+      {{SERVICES_LIST}}
+    </div>
+  </section>
+
+  <!-- WHY TRUST US -->
+  <section class="trust">
+    <div class="section-label">Why Choose Us</div>
+    <h2 class="section-title">We Earn Your Trust<br>Every Time</h2>
+    <div class="trust-grid">
+      <div class="trust-point">
+        <div class="trust-point-number">01</div>
+        <h3>Transparent Pricing</h3>
+        <p>We tell you what it costs before we touch your car. No surprise invoices, ever. Written estimates on every job.</p>
+      </div>
+      <div class="trust-point">
+        <div class="trust-point-number">02</div>
+        <h3>Expert Technicians</h3>
+        <p>Every mechanic on our team is ASE-certified with years of hands-on experience across all makes and models.</p>
+      </div>
+      <div class="trust-point">
+        <div class="trust-point-number">03</div>
+        <h3>12-Month Guarantee</h3>
+        <p>We stand behind our work. All repairs come with a 12-month / 12,000-mile parts and labor warranty.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPOINTMENT + HOURS -->
+  <section>
+    <div class="appointment">
+      <div class="appointment-text">
+        <div class="section-label">Book Your Visit</div>
+        <h2 class="section-title">Schedule an Appointment</h2>
+        <p>Don't wait in line — book online and we'll have a bay ready for you. Same-day appointments often available for urgent repairs.</p>
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-red">{{CTA_PRIMARY_TEXT}}</a>
+        <div style="margin-top:16px; font-size:.9rem; color:#777;">Or call us: <a href="tel:{{PHONE}}" style="color:var(--color-secondary);font-weight:700;">{{PHONE}}</a></div>
+      </div>
+      <div class="hours-card">
+        <h3>Shop Hours</h3>
+        {{HOURS_TABLE}}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section>
+    <div class="about">
+      <div>
+        <div class="img-placeholder" style="min-height:360px;">Shop / Owner Photo</div>
+      </div>
+      <div>
+        <div class="section-label">About Us</div>
+        <h2 class="section-title">{{BUSINESS_NAME}}</h2>
+        <p style="color:#555; margin-bottom:16px; line-height:1.8;">{{ABOUT_COPY}}</p>
+        <p style="color:#777; font-size:.9rem;">— {{OWNER_NAME}}, Owner</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews">
+    <div class="section-label">Customer Reviews</div>
+    <h2 class="section-title">Real Customers,<br>Real Results</h2>
+    <div class="reviews-grid">
+      {{REVIEWS_BLOCK}}
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>{{BUSINESS_NAME}}</h2>
+        <p>{{TAGLINE}} — Trusted auto repair serving {{CITY}}, {{STATE}} and surrounding communities.</p>
+        <div class="footer-social">
+          <a href="{{SOCIAL_INSTAGRAM}}" class="social-link" aria-label="Instagram">IG</a>
+          <a href="{{SOCIAL_FACEBOOK}}" class="social-link" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#">Oil Change</a></li>
+          <li><a href="#">Brakes</a></li>
+          <li><a href="#">Tires</a></li>
+          <li><a href="#">Engine Repair</a></li>
+          <li><a href="#">AC &amp; Heating</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item">
+          <span>📞</span>
+          <a href="tel:{{PHONE}}">{{PHONE}}</a>
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span>
+          <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        </div>
+        <div class="footer-contact-item">
+          <span>📍</span>
+          <span>{{ADDRESS}}, {{CITY}}, {{STATE}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{FOOTER_COPY}}</span>
+      <span>ASE Certified | Licensed &amp; Insured</span>
+    </div>
+  </footer>
+
+</body>
+</html>
