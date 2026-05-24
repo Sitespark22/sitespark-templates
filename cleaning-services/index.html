@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', sans-serif;
+      --font-body: '{{FONT_BODY}}', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: #1a1a2e;
+      line-height: 1.7;
+    }
+
+    h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: #fff;
+      box-shadow: 0 2px 16px rgba(33,150,243,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 5%;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .nav-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-logo-text {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--color-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #444;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--color-primary); }
+
+    .nav-quote {
+      background: var(--color-primary);
+      color: #fff !important;
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      font-size: 0.88rem !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-quote:hover { background: #1565C0 !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--color-primary) 0%, #0d47a1 55%, #1976D2 100%);
+      display: flex;
+      align-items: center;
+      padding: 7rem 5% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -5%;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge-row {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 0.35rem 0.9rem;
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--color-secondary); }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span { color: #A5D6A7; }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-white {
+      display: inline-block;
+      background: #fff;
+      color: var(--color-primary);
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+
+    .btn-outline-white {
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: #fff;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+
+    .hero-trust {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-trust-item {
+      text-align: center;
+    }
+
+    .hero-trust-num {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hero-trust-label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-img-block {
+      position: relative;
+    }
+
+    .hero-img-placeholder {
+      background: rgba(255,255,255,0.08);
+      border: 2px dashed rgba(255,255,255,0.15);
+      border-radius: 16px;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.25);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: var(--font-heading);
+    }
+
+    .hero-floating-card {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -2rem;
+      background: #fff;
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .hfc-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--color-secondary), #388E3C);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hfc-icon svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.5; }
+
+    .hfc-text { font-size: 0.82rem; }
+    .hfc-text strong { display: block; font-family: var(--font-heading); font-size: 0.95rem; color: #1a1a2e; }
+    .hfc-text span { color: #888; }
+
+    /* SERVICES SECTION */
+    .services-section {
+      padding: 5.5rem 5%;
+      background: #f8fbff;
+    }
+
+    .section-label {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: 1rem;
+      color: #666;
+      max-width: 560px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(33,150,243,0.06);
+      transition: box-shadow 0.25s, transform 0.25s;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 12px 40px rgba(33,150,243,0.14);
+      transform: translateY(-5px);
+    }
+
+    .service-card-header {
+      padding: 2.5rem 2rem 2rem;
+      background: linear-gradient(135deg, var(--color-primary), #1565C0);
+      text-align: center;
+    }
+
+    .service-icon {
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .service-icon svg { width: 30px; height: 30px; fill: none; stroke: #fff; stroke-width: 2; }
+
+    .service-card-header h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+
+    .service-card-header .service-tagline {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      font-weight: 400;
+    }
+
+    .service-card-body {
+      padding: 1.75rem 2rem;
+    }
+
+    .service-card-body p {
+      font-size: 0.92rem;
+      color: #555;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .service-features li {
+      font-size: 0.88rem;
+      color: #444;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .service-features li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--color-secondary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 11px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* CHECKLIST */
+    .checklist-section {
+      padding: 5.5rem 5%;
+      background: #fff;
+    }
+
+    .checklist-intro {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .checklist-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.85rem 1.25rem;
+      border-radius: 10px;
+      background: #f0f7ff;
+      font-size: 0.92rem;
+      color: #333;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+
+    .checklist-item:hover { background: #dceeff; }
+
+    .checklist-item .check {
+      flex-shrink: 0;
+      width: 22px; height: 22px;
+      border-radius: 6px;
+      background: var(--color-primary);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+      background-size: 13px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* CHECKLIST SLOT STYLES */
+    .checklist-slot { max-width: 1000px; margin: 0 auto; }
+
+    /* QUOTE CTA */
+    .quote-cta {
+      padding: 5rem 5%;
+      background: linear-gradient(135deg, var(--color-secondary), #2E7D32);
+      text-align: center;
+      color: #fff;
+    }
+
+    .quote-cta h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .quote-cta p {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.85);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn-cta-white {
+      display: inline-block;
+      background: #fff;
+      color: var(--color-secondary);
+      padding: 0.95rem 2.5rem;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .btn-cta-white:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.18); }
+
+    .btn-cta-outline {
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.55);
+      color: #fff;
+      padding: 0.95rem 2.5rem;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-cta-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* SERVICE AREA */
+    .service-area-section {
+      padding: 5.5rem 5%;
+      background: #f8fbff;
+    }
+
+    .service-area-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-area-left .section-title,
+    .service-area-left .section-label { text-align: left; }
+
+    .service-area-left .section-sub { text-align: left; margin-left: 0; }
+
+    .area-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem;
+    }
+
+    .area-tag {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .area-tag::before {
+      content: '';
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    .area-contact-cta {
+      margin-top: 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--color-primary);
+      color: #fff;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+
+    .area-contact-cta:hover { background: #1565C0; }
+
+    .area-map-placeholder {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      border-radius: 16px;
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #90CAF9;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* REVIEWS */
+    .reviews-section {
+      padding: 5.5rem 5%;
+      background: #fff;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      background: #f8fbff;
+      border-radius: 16px;
+      padding: 2rem;
+      border: 1px solid #e3f2fd;
+    }
+
+    .review-stars {
+      color: #FFB300;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .review-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-primary), #1565C0);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+    }
+
+    .review-name {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #1a1a2e;
+    }
+
+    .review-location { font-size: 0.78rem; color: #888; }
+
+    /* FOOTER */
+    footer {
+      background: #0d1b2a;
+      color: rgba(255,255,255,0.55);
+      padding: 4rem 5% 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-logo-text {
+      font-family: var(--font-heading);
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: #fff;
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      max-width: 300px;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      padding: 0.45rem 1rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.06em;
+      transition: all 0.2s;
+    }
+
+    .social-btn:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    footer h5 {
+      font-family: var(--font-heading);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 1.25rem;
+    }
+
+    footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    footer ul a { font-size: 0.88rem; color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    footer ul a:hover { color: var(--color-primary); }
+
+    .footer-contact-item { font-size: 0.86rem; margin-bottom: 0.5rem; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .footer-bottom p { font-size: 0.82rem; }
+
+    /* REVIEWS SLOT */
+    .reviews-slot-wrap { max-width: 1100px; margin: 0 auto; }
+
+    /* CHECKLIST SLOT */
+    .checklist-slot-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 960px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero { min-height: auto; padding-bottom: 5rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-area-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .service-area-left .section-title,
+      .service-area-left .section-label { text-align: center; }
+      .service-area-left .section-sub { text-align: center; margin: 0 auto 2rem; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      nav .nav-links { display: none; }
+      .checklist-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .hero-floating-card { left: 0; right: 0; margin: 0 1rem; }
+      .area-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text" style="display:none">{{BUSINESS_NAME}}</span>
+      <span class="nav-logo-text">{{BUSINESS_NAME}}</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#includes">What's Included</a></li>
+      <li><a href="#area">Service Area</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="{{CTA_PRIMARY_URL}}" class="nav-quote">Get a Free Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge-row">
+          <span class="hero-badge"><span class="dot"></span> Licensed &amp; Insured</span>
+          <span class="hero-badge"><span class="dot"></span> 5-Star Rated</span>
+        </div>
+        <h1>{{HERO_HEADLINE}}</h1>
+        <p class="hero-sub">{{HERO_SUBTEXT}}</p>
+        <div class="hero-cta-group">
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-white">{{CTA_PRIMARY_TEXT}}</a>
+          <a href="tel:{{PHONE}}" class="btn-outline-white">Call {{PHONE}}</a>
+        </div>
+        <div class="hero-trust">
+          <div class="hero-trust-item">
+            <span class="hero-trust-num">500+</span>
+            <span class="hero-trust-label">Happy Homes</span>
+          </div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-num">100%</span>
+            <span class="hero-trust-label">Satisfaction Guaranteed</span>
+          </div>
+          <div class="hero-trust-item">
+            <span class="hero-trust-num">5★</span>
+            <span class="hero-trust-label">Average Rating</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-img-block">
+        <div class="hero-img-placeholder">Hero Photo</div>
+        <div class="hero-floating-card">
+          <div class="hfc-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div class="hfc-text">
+            <strong>Just completed!</strong>
+            <span>Move-out clean in {{CITY}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services-section" id="services">
+    <p class="section-label">Our Services</p>
+    <h2 class="section-title">A Clean for Every Need</h2>
+    <p class="section-sub">From routine upkeep to deep cleans and move-out services — we've got you covered.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-card-header">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>Residential</h3>
+          <span class="service-tagline">Homes &amp; Apartments</span>
+        </div>
+        <div class="service-card-body">
+          <p>Regular cleaning services tailored to your home. Whether weekly, bi-weekly, or monthly — we keep your space fresh so you don't have to think about it.</p>
+          <ul class="service-features">
+            <li>Standard &amp; deep clean options</li>
+            <li>Consistent cleaning team</li>
+            <li>Pet-friendly products available</li>
+            <li>Flexible scheduling</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-header">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          </div>
+          <h3>Commercial</h3>
+          <span class="service-tagline">Offices &amp; Businesses</span>
+        </div>
+        <div class="service-card-body">
+          <p>Professional cleaning for offices, retail spaces, and commercial facilities. A clean workspace boosts productivity and makes the right impression on clients.</p>
+          <ul class="service-features">
+            <li>After-hours scheduling</li>
+            <li>Janitorial contracts available</li>
+            <li>High-traffic area specialists</li>
+            <li>Compliant &amp; insured team</li>
+          </ul>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-card-header">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M5 12H3l9-9 9 9h-2"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/><path d="M10 22V12h4v10"/></svg>
+          </div>
+          <h3>Move-Out</h3>
+          <span class="service-tagline">Rentals &amp; Homes</span>
+        </div>
+        <div class="service-card-body">
+          <p>Get your full security deposit back. Our thorough move-out cleans cover every corner so the property is spotless for new tenants or inspections.</p>
+          <ul class="service-features">
+            <li>Inside appliances &amp; cabinets</li>
+            <li>Baseboards &amp; window sills</li>
+            <li>Deposit guarantee cleaning</li>
+            <li>Available on short notice</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section class="checklist-section" id="includes">
+    <p class="section-label">What's Included</p>
+    <h2 class="section-title">We Don't Miss a Spot</h2>
+    <p class="section-sub">Every clean includes a thorough checklist — no hidden corners, no shortcuts.</p>
+    <div class="checklist-slot-wrap">
+      {{CHECKLIST_HTML}}
+    </div>
+  </section>
+
+  <!-- QUOTE CTA -->
+  <section class="quote-cta">
+    <h2>Ready for a Spotless Home?</h2>
+    <p>Get a free, no-obligation quote in minutes. We'll match a cleaning plan to your needs and budget.</p>
+    <div class="cta-group">
+      <a href="{{CTA_PRIMARY_URL}}" class="btn-cta-white">{{CTA_PRIMARY_TEXT}}</a>
+      <a href="tel:{{PHONE}}" class="btn-cta-outline">Call Us: {{PHONE}}</a>
+    </div>
+  </section>
+
+  <!-- SERVICE AREA -->
+  <section class="service-area-section" id="area">
+    <div class="service-area-inner">
+      <div class="service-area-left">
+        <p class="section-label">Where We Serve</p>
+        <h2 class="section-title">Service Area</h2>
+        <p class="section-sub">Proudly serving {{CITY}}, {{STATE}} and the surrounding communities.</p>
+        <div class="area-list">
+          {{SERVICE_AREA}}
+        </div>
+        <a href="{{CTA_PRIMARY_URL}}" class="area-contact-cta">Check My Area →</a>
+      </div>
+      <div class="area-map-placeholder">Map Placeholder</div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section" id="reviews">
+    <p class="section-label">Customer Love</p>
+    <h2 class="section-title">What Our Clients Say</h2>
+    <p class="section-sub">We earn trust one spotless home at a time.</p>
+    <div class="reviews-slot-wrap">
+      {{REVIEWS_BLOCK}}
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="footer-logo-text">{{BUSINESS_NAME}}</span>
+          <p>{{ABOUTECOPY}}</p>
+          <div class="footer-socials">
+            <a href="{{SOCIAL_INSTAGRAM}}" class="social-btn">Instagram</a>
+            <a href="{{SOCIAL_FACEBOOK}}" class="social-btn">Facebook</a>
+          </div>
+        </div>
+        <div>
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#services">Residential Cleaning</a></li>
+            <li><a href="#services">Commercial Cleaning</a></li>
+            <li><a href="#services">Move-Out Cleaning</a></li>
+            <li><a href="#includes">What's Included</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Contact Us</h5>
+          <p class="footer-contact-item">{{PHONE}}</p>
+          <p class="footer-contact-item">{{EMAIL}}</p>
+          <p class="footer-contact-item">{{ADDRESS}}</p>
+          <p class="footer-contact-item">{{CITY}}, {{STATE}}</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>{{FOOTER_COPY}} &mdash; {{TAGLINE}} &mdash; {{OWNER_NAME}}, Owner</p>
+        <p><span style="color:rgba(255,        <p><a href="{{CTA_PRIMARY_URL}}" style="color:rgba(255,255,255,0.5);">{{CTA_PRIMARY_TEXT}}</a></p>
+      </div>
+    </div>
+  </footer>
+<!-- slot:SERVICES_LIST --><template id="services-list-data" style="display:none">{{SERVICES_LIST}}</template>
+</body>
+</html>
