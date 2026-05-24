@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', 'Bebas Neue', Impact, sans-serif;
+      --font-body: '{{FONT_BODY}}', 'Roboto', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      background: rgba(17,17,17,0.96);
+      border-bottom: 2px solid var(--color-primary);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 68px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img { height: 40px; width: auto; }
+    .nav-logo .brand-name {
+      font-family: var(--font-heading);
+      font-size: 26px;
+      color: #fff;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--color-secondary); }
+    .nav-cta {
+      background: var(--color-primary);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 2px;
+      letter-spacing: 1px;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      background: linear-gradient(to right, rgba(0,0,0,0.88) 55%, rgba(0,87,255,0.18) 100%), #111;
+      display: flex;
+      align-items: center;
+      padding: 60px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(255,255,255,0.015) 60px,
+        rgba(255,255,255,0.015) 61px
+      );
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #111;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(52px, 9vw, 110px);
+      line-height: 0.95;
+      letter-spacing: 2px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .hero h1 span { color: var(--color-secondary); }
+    .hero-sub {
+      font-size: 18px;
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      margin-bottom: 40px;
+      margin-top: 20px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .btn-accent {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #111;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 2px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-accent:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block;
+      border: 2px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 14px 30px;
+      border-radius: 2px;
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--color-secondary); color: var(--color-secondary); }
+    .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .hero-stat strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 40px;
+      color: var(--color-secondary);
+      letter-spacing: 1px;
+    }
+    .hero-stat span { font-size: 13px; color: rgba(255,255,255,0.5); letter-spacing: 1px; text-transform: uppercase; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(34px, 5vw, 56px);
+      color: #fff;
+      line-height: 1.0;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      max-width: 560px;
+      margin-bottom: 48px;
+      font-weight: 300;
+    }
+
+    /* ── PROGRAMS / CLASSES ── */
+    .programs { background: #141414; }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2px;
+    }
+    .program-card {
+      background: #1a1a1a;
+      padding: 36px 28px;
+      border-left: 3px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .program-card:hover { border-left-color: var(--color-primary); background: #1f1f1f; }
+    .program-icon {
+      font-size: 36px;
+      margin-bottom: 16px;
+    }
+    .program-card h3 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      color: #fff;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .program-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+    .program-tag {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      margin-top: 14px;
+    }
+    .programs-slot { margin-top: 32px; color: rgba(255,255,255,0.7); }
+
+    /* ── MEMBERSHIP ── */
+    .membership { background: #111; }
+    .membership-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .membership-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .membership-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,87,255,0.2); }
+    .membership-card.featured {
+      border-color: var(--color-primary);
+      background: #0d1a2e;
+    }
+    .featured-badge {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--color-primary);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 4px 18px;
+    }
+    .membership-card h3 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      color: var(--color-secondary);
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+    .membership-price {
+      font-family: var(--font-heading);
+      font-size: 52px;
+      color: #fff;
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .membership-price span { font-size: 20px; vertical-align: super; }
+    .membership-freq { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 28px; }
+    .membership-features { list-style: none; margin-bottom: 32px; }
+    .membership-features li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+    }
+    .membership-features li::before { content: '✓  '; color: var(--color-secondary); font-weight: 700; }
+    .btn-mem {
+      display: block;
+      background: var(--color-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 14px;
+      border-radius: 2px;
+      transition: opacity 0.2s;
+    }
+    .btn-mem:hover { opacity: 0.85; }
+    .membership-slot { margin-top: 32px; color: rgba(255,255,255,0.7); }
+
+    /* ── FREE TRIAL CTA ── */
+    .trial-cta {
+      background: var(--color-primary);
+      text-align: center;
+      padding: 64px 24px;
+    }
+    .trial-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 6vw, 70px);
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .trial-cta h2 span { color: var(--color-secondary); }
+    .trial-cta p { font-size: 16px; color: rgba(255,255,255,0.8); margin-bottom: 32px; }
+    .btn-trial {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #111;
+      font-weight: 900;
+      font-size: 15px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 18px 48px;
+      border-radius: 2px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-trial:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* ── TRAINERS ── */
+    .trainers { background: #141414; }
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .trainer-card {
+      background: #1a1a1a;
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .trainer-card:hover { transform: translateY(-4px); }
+    .trainer-photo {
+      background: #252525;
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 13px;
+      border-bottom: 3px solid var(--color-primary);
+    }
+    .trainer-info { padding: 20px; }
+    .trainer-info h3 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+    .trainer-specialty {
+      font-size: 12px;
+      color: var(--color-secondary);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .trainer-info p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+    .trainers-slot { margin-top: 32px; color: rgba(255,255,255,0.7); }
+
+    /* ── SCHEDULE ── */
+    .schedule-section { background: #111; }
+    .schedule-table-wrap { overflow-x: auto; }
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    .schedule-table th {
+      background: var(--color-primary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 15px;
+      letter-spacing: 1px;
+      padding: 14px 18px;
+      text-align: left;
+    }
+    .schedule-table td {
+      padding: 12px 18px;
+      border-bottom: 1px solid #1f1f1f;
+      color: rgba(255,255,255,0.75);
+    }
+    .schedule-table tr:nth-child(even) td { background: #161616; }
+    .schedule-table tr:hover td { background: #1a2030; }
+    .class-name { color: #fff; font-weight: 600; }
+    .class-tag {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #111;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      margin-left: 8px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .schedule-slot { margin-top: 28px; color: rgba(255,255,255,0.7); }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      background: #0d0d0d;
+      padding: 80px 24px;
+    }
+    .about-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-img {
+      background: #1e1e1e;
+      border-radius: 4px;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #444;
+      font-size: 14px;
+      border-left: 4px solid var(--color-primary);
+    }
+    .about-grid p { font-size: 16px; color: rgba(255,255,255,0.65); margin-bottom: 16px; line-height: 1.7; }
+    .about-grid .btn-accent { margin-top: 8px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0a0a0a;
+      color: rgba(255,255,255,0.5);
+      padding: 60px 24px 32px;
+      border-top: 2px solid var(--color-primary);
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand h3 {
+      font-family: var(--font-heading);
+      font-size: 28px;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+    }
+    .footer-brand p { font-size: 14px; line-height: 1.65; }
+    .footer-col h4 {
+      color: var(--color-secondary);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; font-size: 14px; }
+    .footer-col a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
+    .footer-col a:hover { color: var(--color-secondary); }
+    .footer-social { display: flex; gap: 12px; margin-top: 20px; }
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: border-color 0.2s;
+    }
+    .footer-social a:hover { border-color: var(--color-primary); }
+    .footer-bottom {
+      border-top: 1px solid #1a1a1a;
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .membership-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .about-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 28px; }
+    }
+    @media (max-width: 600px) {
+      .programs-grid { grid-template-columns: 1fr; }
+      .trainers-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="brand-name" style="display:none">{{BUSINESS_NAME}}</span>
+        <span class="brand-name">{{BUSINESS_NAME}}</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#membership">Membership</a></li>
+        <li><a href="#trainers">Trainers</a></li>
+        <li><a href="#schedule">Schedule</a></li>
+        <li><a href="{{CTA_PRIMARY_URL}}" class="nav-cta">{{CTA_PRIMARY_TEXT}}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <p class="hero-eyebrow">{{TAGLINE}}</p>
+      <h1>{{HERO_HEADLINE}}<br><span>{{BUSINESS_NAME}}</span></h1>
+      <p class="hero-sub">{{HERO_SUBTEXT}}</p>
+      <div class="hero-actions">
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-accent">{{CTA_PRIMARY_TEXT}}</a>
+        <a href="tel:{{PHONE}}" class="btn-ghost">Call {{PHONE}}</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <strong>500+</strong>
+          <span>Members</span>
+        </div>
+        <div class="hero-stat">
+          <strong>20+</strong>
+          <span>Classes Weekly</span>
+        </div>
+        <div class="hero-stat">
+          <strong>10+</strong>
+          <span>Expert Trainers</span>
+        </div>
+        <div class="hero-stat">
+          <strong>5★</strong>
+          <span>Avg. Rating</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="programs" id="programs">
+    <div class="section-inner">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Classes &amp; Programs</h2>
+      <p class="section-sub">Something for every goal — whether you're starting out or pushing limits.</p>
+      <div class="programs-grid">
+        <div class="program-card">
+          <div class="program-icon">🔥</div>
+          <h3>HIIT Training</h3>
+          <p>High-intensity intervals designed to torch calories and build endurance fast.</p>
+          <span class="program-tag">All Levels</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🏋️</div>
+          <h3>Strength &amp; Lifting</h3>
+          <p>Structured progressive overload programs to build real, functional muscle.</p>
+          <span class="program-tag">Beginner–Advanced</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🥊</div>
+          <h3>Boxing &amp; Kickboxing</h3>
+          <p>High-energy cardio boxing classes that build coordination, power, and confidence.</p>
+          <span class="program-tag">All Levels</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🧘</div>
+          <h3>Yoga &amp; Mobility</h3>
+          <p>Restore, flex, and recover. Essential for any training program.</p>
+          <span class="program-tag">Beginner Friendly</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🚴</div>
+          <h3>Cycling (Spin)</h3>
+          <p>Instructor-led indoor cycling sessions synced to high-energy music.</p>
+          <span class="program-tag">Cardio</span>
+        </div>
+        <div class="program-card">
+          <div class="program-icon">🏃</div>
+          <h3>Personal Training</h3>
+          <p>1-on-1 sessions with a certified trainer built around your specific goals.</p>
+          <span class="program-tag">Custom</span>
+        </div>
+      </div>
+      <div class="programs-slot">{{PROGRAMS_HTML}}</div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="membership" id="membership">
+    <div class="section-inner">
+      <p class="section-label">Join Today</p>
+      <h2 class="section-title">Membership Plans</h2>
+      <p class="section-sub">Pick the plan that matches your intensity. Cancel anytime.</p>
+      <div class="membership-grid">
+        <!-- Starter -->
+        <div class="membership-card">
+          <h3>Starter</h3>
+          <div class="membership-price"><span>$</span>29</div>
+          <p class="membership-freq">per month</p>
+          <ul class="membership-features">
+            <li>Gym Floor Access</li>
+            <li>4 Group Classes / Month</li>
+            <li>Locker Room Access</li>
+            <li>Member App</li>
+          </ul>
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-mem">Get Started</a>
+        </div>
+        <!-- Spark (Featured) -->
+        <div class="membership-card featured">
+          <div class="featured-badge">Most Popular</div>
+          <h3>Spark</h3>
+          <div class="membership-price"><span>$</span>59</div>
+          <p class="membership-freq">per month</p>
+          <ul class="membership-features">
+            <li>Unlimited Gym Access</li>
+            <li>Unlimited Group Classes</li>
+            <li>1 PT Session / Month</li>
+            <li>Nutrition Consultation</li>
+            <li>Priority Class Booking</li>
+          </ul>
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-mem">Join Now</a>
+        </div>
+        <!-- Ignite -->
+        <div class="membership-card">
+          <h3>Ignite</h3>
+          <div class="membership-price"><span>$</span>99</div>
+          <p class="membership-freq">per month</p>
+          <ul class="membership-features">
+            <li>Everything in Spark</li>
+            <li>4 PT Sessions / Month</li>
+            <li>Custom Workout Plan</li>
+            <li>Monthly Body Analysis</li>
+            <li>Guest Passes (2/mo)</li>
+          </ul>
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-mem">Go Ignite</a>
+        </div>
+      </div>
+      <div class="membership-slot">{{MEMBERSHIP_HTML}}</div>
+    </div>
+  </section>
+
+  <!-- FREE TRIAL CTA -->
+  <div class="trial-cta">
+    <h2>YOUR FIRST WEEK IS <span>FREE</span></h2>
+    <p>No contracts. No commitment. Just show up and get after it.</p>
+    <a href="{{CTA_PRIMARY_URL}}" class="btn-trial">Claim Free Trial</a>
+  </div>
+
+  <!-- TRAINERS -->
+  <section class="trainers" id="trainers">
+    <div class="section-inner">
+      <p class="section-label">Meet the Team</p>
+      <h2 class="section-title">Our Trainers</h2>
+      <p class="section-sub">Certified, passionate, and here to push you further than you thought possible.</p>
+      <div class="trainers-grid">
+        <div class="trainer-card">
+          <div class="trainer-photo">Photo Placeholder</div>
+          <div class="trainer-info">
+            <h3>Alex Rivera</h3>
+            <p class="trainer-specialty">Strength &amp; Conditioning</p>
+            <p>10 years of experience. NSCA-certified. Loves helping beginners build lifelong fitness habits.</p>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <div class="trainer-photo">Photo Placeholder</div>
+          <div class="trainer-info">
+            <h3>Jordan Lee</h3>
+            <p class="trainer-specialty">HIIT &amp; Boxing</p>
+            <p>Former competitive athlete. Brings energy that transforms every class into a breakthrough moment.</p>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <div class="trainer-photo">Photo Placeholder</div>
+          <div class="trainer-info">
+            <h3>Sam Torres</h3>
+            <p class="trainer-specialty">Yoga &amp; Mobility</p>
+            <p>RYT-500 certified. Specializes in recovery and movement quality for athletes of all levels.</p>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <div class="trainer-photo">Photo Placeholder</div>
+          <div class="trainer-info">
+            <h3>Morgan Chen</h3>
+            <p class="trainer-specialty">Cycling &amp; Cardio</p>
+            <p>Brings the club energy to every spin class. Certified spin instructor with 200+ classes taught.</p>
+          </div>
+        </div>
+      </div>
+      <div class="trainers-slot">{{TRAINERS_HTML}}</div>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section class="schedule-section" id="schedule">
+    <div class="section-inner">
+      <p class="section-label">Class Schedule</p>
+      <h2 class="section-title">This Week's Schedule</h2>
+      <p class="section-sub">Reserve your spot through the member app or call us directly.</p>
+      <div class="schedule-table-wrap">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Time</th>
+              <th>Class</th>
+              <th>Trainer</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Monday</td>
+              <td>6:00 AM</td>
+              <td><span class="class-name">HIIT Blast</span><span class="class-tag">All Levels</span></td>
+              <td>Alex Rivera</td>
+              <td>45 min</td>
+            </tr>
+            <tr>
+              <td>Monday</td>
+              <td>7:00 PM</td>
+              <td><span class="class-name">Boxing Fundamentals</span></td>
+              <td>Jordan Lee</td>
+              <td>60 min</td>
+            </tr>
+            <tr>
+              <td>Tuesday</td>
+              <td>7:00 AM</td>
+              <td><span class="class-name">Spin Cycle</span><span class="class-tag">Cardio</span></td>
+              <td>Morgan Chen</td>
+              <td>45 min</td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>6:00 AM</td>
+              <td><span class="class-name">Strength Circuit</span></td>
+              <td>Alex Rivera</td>
+              <td>60 min</td>
+            </tr>
+            <tr>
+              <td>Wednesday</td>
+              <td>6:30 PM</td>
+              <td><span class="class-name">Yoga Flow</span><span class="class-tag">Recovery</span></td>
+              <td>Sam Torres</td>
+              <td>60 min</td>
+            </tr>
+            <tr>
+              <td>Thursday</td>
+              <td>7:00 AM</td>
+              <td><span class="class-name">HIIT Blast</span><span class="class-tag">All Levels</span></td>
+              <td>Jordan Lee</td>
+              <td>45 min</td>
+            </tr>
+            <tr>
+              <td>Friday</td>
+              <td>6:00 AM</td>
+              <td><span class="class-name">Spin Cycle</span></td>
+              <td>Morgan Chen</td>
+              <td>45 min</td>
+            </tr>
+            <tr>
+              <td>Saturday</td>
+              <td>9:00 AM</td>
+              <td><span class="class-name">Open Training</span><span class="class-tag">All Welcome</span></td>
+              <td>Team Rotation</td>
+              <td>90 min</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="schedule-slot">{{SCHEDULE_HTML}}</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <div class="about-strip">
+    <div class="about-grid">
+      <div class="about-img">Photo Placeholder</div>
+      <div>
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title" style="font-size:42px; margin-bottom:20px;">{{BUSINESS_NAME}}</h2>
+        <p>{{ABOUT_COPY}}</p>
+        <p style="color:rgba(255,255,255,0.45); font-size:14px;">— {{OWNER_NAME}}, Founder</p>
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-accent" style="margin-top:28px; display:inline-block;">{{CTA_PRIMARY_TEXT}}</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>{{BUSINESS_NAME}}</h3>
+          <p>{{TAGLINE}}</p>
+          <p style="margin-top:12px; font-size:14px;">{{ADDRESS}}<br>{{CITY}}, {{STATE}}</p>
+          <div class="footer-social">
+            <a href="{{SOCIAL_INSTAGRAM}}" aria-label="Instagram">📷</a>
+            <a href="{{SOCIAL_FACEBOOK}}" aria-label="Facebook">👍</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Programs</h4>
+          <ul>
+            <li><a href="#programs">HIIT Training</a></li>
+            <li><a href="#programs">Strength</a></li>
+            <li><a href="#programs">Boxing</a></li>
+            <li><a href="#programs">Yoga</a></li>
+            <li><a href="#programs">Cycling</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="#membership">Membership</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#trainers">Trainers</a></li>
+            <li><a href="tel:{{PHONE}}">{{PHONE}}</a></li>
+            <li><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>{{FOOTER_COPY}}</span>
+        <span>{{ADDRESS}}, {{CITY}}, {{STATE}}</span>
+      </div>
+    </div>
+  </footer>
+
+<!-- slot:SERVICES_LIST --><template id="services-list-data" style="display:none">{{SERVICES_LIST}}</template>
+<!-- slot:REVIEWS_BLOCK --><template id="reviews-block-data" style="display:none">{{REVIEWS_BLOCK}}</template>
+</body>
+</html>
