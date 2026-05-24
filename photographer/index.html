@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', 'Cormorant Garamond', Georgia, serif;
+      --font-body: '{{FONT_BODY}}', 'Lato', Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: rgba(255,255,255,0.82);
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 0 40px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(26,26,26,0.95) 0%, rgba(26,26,26,0) 100%);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-logo .brand-name {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 400;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      border: 1px solid rgba(255,255,255,0.5);
+      padding: 9px 22px;
+      border-radius: 1px;
+      color: #fff !important;
+      letter-spacing: 2px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      height: 100vh;
+      min-height: 640px;
+      background: #111;
+      display: flex;
+      align-items: flex-end;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,26,26,0.96) 0%, rgba(26,26,26,0.3) 50%, rgba(26,26,26,0.05) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      padding: 0 60px 80px;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(52px, 9vw, 112px);
+      font-weight: 300;
+      color: #fff;
+      line-height: 0.95;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: rgba(255,255,255,0.65);
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      margin-bottom: 36px;
+      max-width: 500px;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      display: inline-block;
+      background: #fff;
+      color: var(--color-primary);
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 1px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.8);
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 15px 32px;
+      border-radius: 1px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      right: 60px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      writing-mode: vertical-rl;
+      z-index: 10;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 100px 60px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 300;
+      color: var(--color-secondary);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      max-width: 520px;
+      margin-bottom: 56px;
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--color-bg); padding: 80px 0; }
+    .gallery-header {
+      padding: 0 60px;
+      margin-bottom: 32px;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+    .gallery-item {
+      background: #222;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3a3a3a;
+      font-family: var(--font-heading);
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 2px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover { opacity: 0.8; }
+    .gallery-item:nth-child(1) { background: #1e1e1e; }
+    .gallery-item:nth-child(2) { background: #222; }
+    .gallery-item:nth-child(3) { background: #202020; }
+    .gallery-item:nth-child(4) { background: #252525; }
+    .gallery-item:nth-child(5) { background: #1c1c1c; }
+    .gallery-item:nth-child(6) { background: #232323; }
+    .gallery-item:nth-child(7) { background: #212121; }
+    .gallery-item:nth-child(8) { background: #262626; }
+    .gallery-item:nth-child(9) { background: #1e1e1e; }
+    .gallery-label {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* ── SPECIALTIES ── */
+    .specialties { background: #111; }
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: #1f1f1f;
+    }
+    .spec-item {
+      background: #111;
+      padding: 40px 32px;
+      transition: background 0.2s;
+    }
+    .spec-item:hover { background: #161616; }
+    .spec-num {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.08);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    .spec-item h3 {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--color-secondary);
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .spec-item p { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; font-weight: 300; }
+    .spec-slot { margin-top: 48px; color: rgba(255,255,255,0.5); }
+
+    /* ── ABOUT ── */
+    .about-section { background: var(--color-bg); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img {
+      background: #222;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #3a3a3a;
+      font-family: var(--font-heading);
+      font-size: 16px;
+      letter-spacing: 2px;
+    }
+    .about-section h2 {
+      font-family: var(--font-heading);
+      font-size: 48px;
+      font-weight: 300;
+      color: var(--color-secondary);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .about-section p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+    .owner-name {
+      margin-top: 28px;
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* ── PACKAGES ── */
+    .packages { background: #111; }
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1px;
+      background: #1f1f1f;
+    }
+    .package-card {
+      background: #111;
+      padding: 48px 36px;
+      transition: background 0.2s;
+    }
+    .package-card:hover { background: #141414; }
+    .package-card.featured { background: #161818; border-top: 1px solid rgba(255,255,255,0.12); }
+    .package-name {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 16px;
+    }
+    .package-price {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--color-secondary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .package-price span { font-size: 24px; vertical-align: super; }
+    .package-desc {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 28px;
+      font-weight: 300;
+    }
+    .package-features { list-style: none; margin-bottom: 36px; }
+    .package-features li {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      font-weight: 300;
+    }
+    .package-features li::before { content: '— '; color: rgba(255,255,255,0.2); }
+    .btn-package {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-package:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+    .package-card.featured .btn-package {
+      background: #fff;
+      color: var(--color-primary);
+      border-color: #fff;
+    }
+    .package-card.featured .btn-package:hover { opacity: 0.9; }
+    .packages-slot { margin-top: 48px; color: rgba(255,255,255,0.5); padding: 0 0; }
+
+    /* ── CONTACT / BOOK ── */
+    .contact-section { background: var(--color-bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-section h2 {
+      font-family: var(--font-heading);
+      font-size: 56px;
+      font-weight: 300;
+      color: var(--color-secondary);
+      line-height: 1.0;
+      margin-bottom: 24px;
+    }
+    .contact-section p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 12px;
+      font-weight: 300;
+    }
+    .contact-details { margin-top: 36px; }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .contact-item-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      min-width: 80px;
+      padding-top: 2px;
+    }
+    .contact-item-value {
+      font-size: 15px;
+      color: rgba(255,255,255,0.7);
+    }
+    .contact-item-value a { color: rgba(255,255,255,0.7); transition: color 0.2s; }
+    .contact-item-value a:hover { color: #fff; }
+    .contact-form { background: #1c1c1c; padding: 48px; }
+    .form-field { margin-bottom: 20px; }
+    .form-field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 8px;
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select {
+      width: 100%;
+      background: #111;
+      border: 1px solid #2a2a2a;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: rgba(255,255,255,0.75);
+      border-radius: 0;
+      transition: border-color 0.2s;
+      font-weight: 300;
+    }
+    .form-field input:focus,
+    .form-field textarea:focus,
+    .form-field select:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.3);
+    }
+    .form-field textarea { min-height: 100px; resize: vertical; }
+    .form-submit {
+      display: block;
+      width: 100%;
+      background: var(--color-secondary);
+      color: var(--color-primary);
+      font-family: var(--font-body);
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      margin-top: 8px;
+    }
+    .form-submit:hover { opacity: 0.9; }
+    .contact-social {
+      display: flex;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .contact-social a {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      transition: color 0.2s;
+    }
+    .contact-social a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111;
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 1px solid #1f1f1f;
+    }
+    .footer-brand {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 1px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.6); }
+    .footer-copy { font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+
+    /* ── REVIEWS STRIP ── */
+    .reviews-strip { background: #111; padding: 80px 60px; }
+    .reviews-strip-inner { max-width: 1200px; margin: 0 auto; }
+    .review-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+    }
+    .photo-review {
+      border-left: 1px solid rgba(255,255,255,0.08);
+      padding-left: 28px;
+    }
+    .photo-review blockquote {
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-style: italic;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      font-weight: 300;
+    }
+    .photo-reviewer { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.25); }
+    .reviews-block-slot { margin-top: 40px; color: rgba(255,255,255,0.5); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      section { padding: 70px 24px; }
+      .hero-content { padding: 0 24px 60px; }
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+      .about-img { min-height: 280px; }
+      footer { padding: 32px 24px; }
+      .reviews-strip { padding: 70px 24px; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid { grid-template-columns: repeat(3, 1fr); }
+      .packages-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="brand-name" style="display:none">{{BUSINESS_NAME}}</span>
+      <span class="brand-name">{{BUSINESS_NAME}}</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#gallery">Work</a></li>
+      <li><a href="#specialties">Specialties</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#packages">Packages</a></li>
+      <li><a href="{{CTA_PRIMARY_URL}}" class="nav-cta">{{CTA_PRIMARY_TEXT}}</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">Photo Placeholder</div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">{{TAGLINE}}</p>
+      <h1>{{HERO_HEADLINE}}<br><em>Photography.</em></h1>
+      <p class="hero-sub">{{HERO_SUBTEXT}}</p>
+      <div class="hero-actions">
+        <a href="#gallery" class="btn-primary">View Portfolio</a>
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-ghost">{{CTA_PRIMARY_TEXT}}</a>
+      </div>
+    </div>
+    <p class="scroll-hint">Scroll</p>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-header">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <span>01</span>
+        <span class="gallery-label">Portrait</span>
+      </div>
+      <div class="gallery-item">
+        <span>02</span>
+        <span class="gallery-label">Wedding</span>
+      </div>
+      <div class="gallery-item">
+        <span>03</span>
+        <span class="gallery-label">Editorial</span>
+      </div>
+      <div class="gallery-item">
+        <span>04</span>
+        <span class="gallery-label">Landscape</span>
+      </div>
+      <div class="gallery-item">
+        <span>05</span>
+        <span class="gallery-label">Commercial</span>
+      </div>
+      <div class="gallery-item">
+        <span>06</span>
+        <span class="gallery-label">Portrait</span>
+      </div>
+      <div class="gallery-item">
+        <span>07</span>
+        <span class="gallery-label">Event</span>
+      </div>
+      <div class="gallery-item">
+        <span>08</span>
+        <span class="gallery-label">Family</span>
+      </div>
+      <div class="gallery-item">
+        <span>09</span>
+        <span class="gallery-label">Brand</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPECIALTIES -->
+  <section class="specialties" id="specialties">
+    <div class="section-inner">
+      <p class="section-label">Expertise</p>
+      <h2 class="section-title">What I Shoot</h2>
+      <p class="section-sub">Every image is a collaboration — a story told through light, composition, and connection.</p>
+      <div class="spec-grid">
+        <div class="spec-item">
+          <div class="spec-num">01</div>
+          <h3>Weddings</h3>
+          <p>Timeless, documentary-style coverage of your most important day. Full-day packages available.</p>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">02</div>
+          <h3>Portraits</h3>
+          <p>Individuals, couples, and families. Studio and outdoor sessions tailored to your personality.</p>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">03</div>
+          <h3>Commercial</h3>
+          <p>Brand photography, product shots, and editorial content that elevates your business.</p>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">04</div>
+          <h3>Events</h3>
+          <p>Corporate events, galas, conferences, and private parties — documented with intention and style.</p>
+        </div>
+        <div class="spec-item">
+          <div class="spec-num">05</div>
+          <h3>Fine Art</h3>
+          <p>Conceptual and fine art photography available as limited edition prints for collectors.</p>
+        </div>
+      </div>
+      <div class="spec-slot">{{SPECIALTIES_LIST}}</div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section" id="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-img">Photo Placeholder</div>
+        <div>
+          <p class="section-label">Behind the Lens</p>
+          <h2>{{OWNER_NAME}}</h2>
+          <p>{{ABOUT_COPY}}</p>
+          <p>Based in {{CITY}}, {{STATE}} — available for travel worldwide.</p>
+          <p class="owner-name">— {{OWNER_NAME}}</p>
+          <div style="margin-top:36px;">
+            <a href="{{CTA_PRIMARY_URL}}" class="btn-primary">Work With Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <div class="reviews-strip">
+    <div class="reviews-strip-inner">
+      <p class="section-label" style="margin-bottom:40px;">Client Stories</p>
+      <div class="review-row">
+        <div class="photo-review">
+          <blockquote>"Working with {{OWNER_NAME}} was the most wonderful creative experience. Every photo from our wedding is pure art."</blockquote>
+          <p class="photo-reviewer">— Emily &amp; James, 2024</p>
+        </div>
+        <div class="photo-review">
+          <blockquote>"The brand photos completely transformed how we present ourselves online. The quality is just extraordinary."</blockquote>
+          <p class="photo-reviewer">— Founders, Maison Studio</p>
+        </div>
+        <div class="photo-review">
+          <blockquote>"I was nervous in front of the camera. {{OWNER_NAME}} made me feel completely at ease — and the results were stunning."</blockquote>
+          <p class="photo-reviewer">— Sarah M., Portrait Client</p>
+        </div>
+      </div>
+      <div class="reviews-block-slot">{{REVIEWS_BLOCK}}</div>
+    </div>
+  </div>
+
+  <!-- PACKAGES -->
+  <section class="packages" id="packages">
+    <div class="section-inner">
+      <p class="section-label">Investment</p>
+      <h2 class="section-title">Packages &amp; Pricing</h2>
+      <p class="section-sub">Every session is custom-quoted, but these starting points give a clear picture of what to expect.</p>
+      <div class="packages-grid">
+        <div class="package-card">
+          <p class="package-name">Essential</p>
+          <div class="package-price"><span>$</span>450</div>
+          <p class="package-desc">Perfect for individuals and quick brand shoots.</p>
+          <ul class="package-features">
+            <li>2-Hour Session</li>
+            <li>1 Location</li>
+            <li>25 Edited Images</li>
+            <li>Online Gallery Delivery</li>
+          </ul>
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-package">Inquire</a>
+        </div>
+        <div class="package-card featured">
+          <p class="package-name">Signature</p>
+          <div class="package-price"><span>$</span>1,200</div>
+          <p class="package-desc">Full experience for portraits, brands, and events.</p>
+          <ul class="package-features">
+            <li>Full-Day Coverage</li>
+            <li>Multiple Locations</li>
+            <li>100 Edited Images</li>
+            <li>Print Release Included</li>
+            <li>Rush Delivery Available</li>
+          </ul>
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-package">Inquire</a>
+        </div>
+        <div class="package-card">
+          <p class="package-name">Wedding</p>
+          <div class="package-price"><span>$</span>3,500</div>
+          <p class="package-desc">Complete wedding day documentation, start to finish.</p>
+          <ul class="package-features">
+            <li>8-Hour Coverage</li>
+            <li>Engagement Session</li>
+            <li>400+ Edited Images</li>
+            <li>Printed Album Option</li>
+            <li>Second Shooter Available</li>
+          </ul>
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-package">Inquire</a>
+        </div>
+      </div>
+      <div class="packages-slot">{{PACKAGES_HTML}}</div>
+    </div>
+  </section>
+
+  <!-- CONTACT / BOOK -->
+  <section class="contact-section" id="contact">
+    <div class="section-inner">
+      <div class="contact-grid">
+        <div>
+          <p class="section-label">Let's Create Together</p>
+          <h2>{{BUSINESS_NAME}}</h2>
+          <p>Tell me about your vision and let's make something unforgettable. I typically respond within 24 hours.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <span class="contact-item-label">Email</span>
+              <span class="contact-item-value"><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-label">Phone</span>
+              <span class="contact-item-value"><a href="tel:{{PHONE}}">{{PHONE}}</a></span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-label">Based In</span>
+              <span class="contact-item-value">{{CITY}}, {{STATE}}</span>
+            </div>
+            <div class="contact-item">
+              <span class="contact-item-label">Available</span>
+              <span class="contact-item-value">Worldwide Travel</span>
+            </div>
+          </div>
+          <div class="contact-social">
+            <a href="{{SOCIAL_INSTAGRAM}}">Instagram</a>
+            <a href="{{SOCIAL_FACEBOOK}}">Facebook</a>
+          </div>
+        </div>
+        <div class="contact-form">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" placeholder="Jane Smith" />
+          </div>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" placeholder="jane@email.com" />
+          </div>
+          <div class="form-field">
+            <label>Session Type</label>
+            <select>
+              <option>Wedding</option>
+              <option>Portrait / Family</option>
+              <option>Commercial / Brand</option>
+              <option>Event</option>
+              <option>Fine Art / Other</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Tell Me About Your Vision</label>
+            <textarea placeholder="Date, location, what you're imagining..."></textarea>
+          </div>
+          <button class="form-submit" type="button">Send Inquiry →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">{{BUSINESS_NAME}}</div>
+    <ul class="footer-links">
+      <li><a href="#gallery">Work</a></li>
+      <li><a href="#packages">Pricing</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="{{SOCIAL_INSTAGRAM}}">Instagram</a></li>
+      <li><a href="{{SOCIAL_FACEBOOK}}">Facebook</a></li>
+    </ul>
+    <p class="footer-copy">{{FOOTER_COPY}}</p>
+  </footer>
+
+<!-- slot:ADDRESS --><template id="address-data" style="display:none">{{ADDRESS}}</template>
+<!-- slot:SERVICES_LIST --><template id="services-list-data" style="display:none">{{SERVICES_LIST}}</template>
+</body>
+</html>
