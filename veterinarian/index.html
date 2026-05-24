@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', 'Nunito', sans-serif;
+      --font-body: '{{FONT_BODY}}', 'Open Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: #3a3a3a;
+      line-height: 1.7;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── EMERGENCY BANNER ── */
+    .emergency-banner {
+      background: var(--color-secondary);
+      color: white;
+      text-align: center;
+      padding: 12px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .emergency-banner a { color: #fff; text-decoration: underline; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e8ede8;
+      position: sticky;
+      top: 44px;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(91,155,107,0.08);
+    }
+    nav.no-emergency { top: 0; }
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-logo .brand-name {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--color-primary);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #555;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--color-primary); }
+    .nav-cta {
+      background: var(--color-primary);
+      color: #fff !important;
+      padding: 11px 24px;
+      border-radius: 30px;
+      font-weight: 700;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #edf5ed 0%, #fffdf5 100%);
+      padding: 90px 24px;
+    }
+    .hero-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(91,155,107,0.12);
+      color: var(--color-primary);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 800;
+      color: #1e3024;
+      line-height: 1.18;
+      margin-bottom: 18px;
+    }
+    .hero h1 span { color: var(--color-primary); }
+    .hero-sub {
+      font-size: 17px;
+      color: #667;
+      margin-bottom: 36px;
+      line-height: 1.72;
+    }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 32px;
+      border-radius: 30px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-block;
+      border: 2px solid var(--color-primary);
+      color: var(--color-primary);
+      font-weight: 700;
+      font-size: 15px;
+      padding: 12px 28px;
+      border-radius: 30px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--color-primary); color: #fff; }
+    .hero-pets {
+      display: flex;
+      gap: 12px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .pet-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1.5px solid #d0e5d4;
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #556;
+    }
+    .hero-img {
+      background: linear-gradient(140deg, #c8ddc9, #f0e4c8);
+      border-radius: 28px;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7aac82;
+      font-size: 14px;
+      box-shadow: 0 20px 60px rgba(91,155,107,0.14);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-img::before {
+      content: '🐾';
+      position: absolute;
+      font-size: 120px;
+      opacity: 0.08;
+      right: -10px;
+      bottom: -20px;
+    }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      color: #1e3024;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: #778;
+      max-width: 560px;
+      margin-bottom: 48px;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: #fff; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--color-bg);
+      border: 1.5px solid #d8ead9;
+      border-radius: 16px;
+      padding: 30px 26px;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .service-card:hover {
+      box-shadow: 0 8px 32px rgba(91,155,107,0.12);
+      transform: translateY(-3px);
+      border-color: var(--color-primary);
+    }
+    .service-icon {
+      width: 54px;
+      height: 54px;
+      background: rgba(91,155,107,0.12);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 16px;
+    }
+    .service-card h3 {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e3024;
+      margin-bottom: 8px;
+    }
+    .service-card p { font-size: 14px; color: #778; line-height: 1.65; }
+    .services-slot { margin-top: 32px; color: #555; }
+
+    /* ── VETS ── */
+    .vets { background: var(--color-bg); }
+    .vets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .vet-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(91,155,107,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .vet-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(91,155,107,0.14); }
+    .vet-photo {
+      background: linear-gradient(140deg, #c8ddc9, #f5e9d5);
+      min-height: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8aac8e;
+      font-size: 14px;
+    }
+    .vet-info { padding: 24px; }
+    .vet-info h3 {
+      font-family: var(--font-heading);
+      font-size: 19px;
+      font-weight: 800;
+      color: #1e3024;
+      margin-bottom: 4px;
+    }
+    .vet-title {
+      font-size: 13px;
+      color: var(--color-primary);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .vet-info p { font-size: 13px; color: #778; line-height: 1.6; }
+    .vet-specialty {
+      display: inline-block;
+      background: rgba(91,155,107,0.1);
+      color: var(--color-primary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+    .vets-slot { margin-top: 32px; color: #555; }
+
+    /* ── BOOK CTA ── */
+    .book-cta {
+      background: var(--color-primary);
+      padding: 80px 24px;
+      text-align: center;
+    }
+    .book-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .book-cta p { font-size: 17px; color: rgba(255,255,255,0.82); margin-bottom: 32px; }
+    .btn-book {
+      display: inline-block;
+      background: #fff;
+      color: var(--color-primary);
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 16px;
+      padding: 16px 44px;
+      border-radius: 30px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-book:hover { opacity: 0.92; transform: translateY(-2px); }
+    .book-cta .alt-contact {
+      margin-top: 20px;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+    }
+    .book-cta .alt-contact a { color: #fff; font-weight: 700; }
+
+    /* ── REVIEWS ── */
+    .reviews { background: #fff; }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .review-card {
+      background: var(--color-bg);
+      border: 1.5px solid #d8ead9;
+      border-radius: 16px;
+      padding: 28px;
+    }
+    .review-stars { font-size: 17px; color: #f5a623; margin-bottom: 12px; }
+    .review-card blockquote {
+      font-size: 15px;
+      color: #556;
+      line-height: 1.72;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+    .reviewer {
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e3024;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .reviewer::before { content: '🐾'; font-size: 14px; }
+    .reviews-slot { margin-top: 32px; color: #555; }
+
+    /* ── CONTACT STRIP ── */
+    .contact-strip { background: var(--color-bg); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .contact-card {
+      background: #fff;
+      border: 1.5px solid #d8ead9;
+      border-radius: 16px;
+      padding: 28px;
+      text-align: center;
+    }
+    .contact-card .icon { font-size: 32px; margin-bottom: 12px; }
+    .contact-card h4 {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e3024;
+      margin-bottom: 6px;
+    }
+    .contact-card p { font-size: 14px; color: #778; }
+    .contact-card a { color: var(--color-primary); font-weight: 700; }
+
+    /* ── ABOUT ── */
+    .about-section { background: #fff; }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-img {
+      background: linear-gradient(140deg, #c8ddc9, #f0e4c8);
+      border-radius: 24px;
+      min-height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7aac82;
+      font-size: 14px;
+    }
+    .about-section h2 {
+      font-family: var(--font-heading);
+      font-size: 30px;
+      font-weight: 800;
+      color: #1e3024;
+      margin-bottom: 16px;
+    }
+    .about-section p { font-size: 16px; color: #667; margin-bottom: 14px; }
+    .owner-sig {
+      margin-top: 20px;
+      font-family: var(--font-heading);
+      font-size: 18px;
+      color: var(--color-primary);
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #1e3024;
+      color: rgba(255,255,255,0.65);
+      padding: 60px 24px 32px;
+    }
+    .footer-inner { max-width: 1160px; margin: 0 auto; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand h3 {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .footer-brand p { font-size: 14px; line-height: 1.65; }
+    .footer-social { display: flex; gap: 12px; margin-top: 18px; }
+    .footer-social a {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      transition: background 0.2s;
+    }
+    .footer-social a:hover { background: var(--color-primary); }
+    .footer-col h4 {
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 10px; font-size: 14px; }
+    .footer-col a { color: rgba(255,255,255,0.6); transition: color 0.2s; }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero-inner,
+      .about-grid { grid-template-columns: 1fr; }
+      .hero-img { display: none; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- EMERGENCY BANNER (always in DOM; populated by slot) -->
+  <div class="emergency-banner">
+    🚨 Emergency Line: {{EMERGENCY_LINE}}
+  </div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <span class="brand-name" style="display:none">{{BUSINESS_NAME}}</span>
+ &       <span class="brand-name">{{BUSINESS_NAME}}</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#vets">Our Vets</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="{{CTA_PRIMARY_URL}}" class="nav-cta">{{CTA_PRIMARY_TEXT}}</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="hero-badge">🐾 {{TAGLNE}}</p>
+        <h1>{{HERO_HEADLINE}}<br><span>{{BUSINESS_NAME}}</span></h1>
+        <p class="hero-sub">{{HERO_SUBTEXT}}</p>
+        <div class="hero-actions">
+          <a href="{{CTA_PRIMARY_URL}}" class="btn-primary">{{CTA_PRIMARY_TEXT}}</a>
+          <a href="tel:{{PHONE}}" class="btn-outline">Call {{PHONE}}</a>
+        </div>
+        <div class="hero-pets">
+          <span class="pet-tag">🐶 Dogs</span>
+          <span class="pet-tag">🐱 Cats</span>
+          <span class="pet-tag">🐦 Birds</span>
+          <span class="pet-tag">🐰 Rabbits</span>
+          <span class="pet-tag">🦎 Exotics</span>
+        </div>
+      </div>
+      <div class="hero-img">Photo Placeholder</div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="section-inner">
+      <p class="section-label">What We Do</p>
+      <h2 class="section-title">Veterinary Services</h2>
+      <p class="section-sub">Comprehensive care for every stage of your pet's life — from puppy visits to senior wellness.</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🩺</div>
+          <h3>Wellness Exams</h3>
+          <p>Annual and semi-annual checkups to keep your pet healthy and catch issues early.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">💉</div>
+          <h3>Vaccinations</h3>
+          <p>Core and lifestyle vaccines to protect your pet from preventable diseases.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔬</div>
+          <h3>Diagnostics &amp; Lab</h3>
+          <p>In-house bloodwork, urinalysis, X-ray, and ultrasound for fast, accurate results.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏥</div>
+          <h3>Surgery</h3>
+          <p>Routine procedures including spay/neuter plus soft tissue and orthopedic surgery.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🦷</div>
+          <h3>Dental Care</h3>
+          <p>Professional dental cleanings, extractions, and oral health assessments.</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🚑</div>
+          <h3>Emergency Care</h3>
+          <p>Urgent care for ill or injured pets. Call our emergency line for immediate guidance.</p>
+        </div>
+      </div>
+      <div class="services-slot">{{SERVICES_LIST}}</div>
+    </div>
+  </section>
+
+  <!-- VETS -->
+  <section class="vets" id="vets">
+    <div class="section-inner">
+      <p class="section-label">Meet the Team</p>
+      <h2 class="section-title">Our Veterinarians</h2>
+      <p class="section-sub">Compassionate, experienced vets who love animals as much as you do.</p>
+      <div class="vets-grid">
+        <div class="vet-card">
+          <div class="vet-photo">Photo Placeholder</div>
+          <div class="vet-info">
+            <h3>Dr. {{OWNER_NAME}}</h3>
+            <p class="vet-title">Lead Veterinarian, DVM</p>
+            <p>Over 12 years of&�xperience in small animal medicine. Known for a calm, reassuring approach with anxious pets and worried owners alike.</p>
+            <span class="vet-specialty">Small Animal Medicine</span>
+          </div>
+        </div>
+        <div class="vet-card">
+          <div class="vet-photo">Photo Placeholder</div>
+          <div class="vet-info">
+            <h3>Dr. Priya Nair</h3>
+            <p class="vet-title">Associate Veterinarian, DVM</p>
+            <p>Passionate about feline health and exotic animals. A published researcher in avian medicine with a gentle, thorough approach.</p>
+            <span class="vet-specialty">Exotics &amp; Feline</span>
+          </div>
+        </div>
+        <div class="vet-card">
+          <div class="vet-photo">Photo Placeholder</div>
+          <div class="vet-info">
+            <h3>Dr. Liam Brooks</h3>
+            <p class="vet-title">Associate Veterinarian, DVM</p>
+            <p>Specializes in surgical procedures and orthopedics. Has performed over 1,000 successful surgeries with an outstanding recovery record.</p>
+            <span class="vet-specialty">Surgery &amp; Orthopedics</span>
+          </div>
+        </div>
+      </div>
+      <div class="vets-slot">{{VETS_HTML}}</div>
+    </div>
+  </section>
+
+  <!-- BOOK CTA -->
+  <div class="book-cta">
+    <h2>Ready to Book an Appointment?</h2>
+    <p>We're accepting new patients. Schedule online or call us today.</p>
+    <a href="{{CTA_PRIMARY_URL}}" class="btn-book">{{CTA_PRIMARY_TEXT}}</a>
+    <p class="alt-contact">Or call us: <a href="tel:{{PHONE}}">{{PHONE}}</a></p>
+  </div>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews">
+    <div class="section-inner">
+      <p class="section-label">What Pet Parents Say</p>
+      <h2 class="section-title">Trusted by Families in {{CITY}}</h2>
+      <p class="section-sub">Our patients — and their humans — love us. Here's what they have to say.</p>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"Dr. {{OWNER_NAME}} is absolutely wonderful with our anxious rescue dog. The team is patient, warm, and genuinely cares. We won't go anywhere else."</blockquote>
+          <p class="reviewer">Sarah & Biscuit</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"We had an after-hours emergency with our cat and the team guided us through everything calmly. Outstanding care and follow-up. Incredible practice."</blockquote>
+          <p class="reviewer">Mark & Luna</p>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <blockquote>"Best vet in {{CITY}}. They take time to explain everything and genuinely treat your pet like family. Clean, professional, and kind staff throughout."</blockquote>
+          <p class="reviewer">Jennifer & Max</p>
+        </div>
+      </div>
+      <div class="reviews-slot">{{REVIEWS_BLOCK}}</div>
+    </div>
+  </section>
+
+  <!-- CONTACT STRIP -->
+  <section class="contact-strip" id="contact">
+    <div class="section-inner">
+      <p class="section-label">Reach Us</p>
+      <h2 class="section-title">We're Here for Your Pet</h2>
+      <p class="section-sub">Questions? Ready to book? We're easy to reach.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="icon">📍</div>
+          <h4>Find Us</h4>
+          <p>{{ADDRESS}}<br>{{CITY}}, {{STATE}}</p>
+        </div>
+        <div class="contact-card">
+          <div class="icon">📞</div>
+          <h4>Call Us</h4>
+          <p><a href="tel:{{PHONE}}">{{PHONE}}</a></p>
+        </div>
+        <div class="contact-card">
+          <div class="icon">✉️</div>
+          <h4>Email</h4>
+          <p><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></p>
+        </div>
+        <div class="contact-card">
+          <div class="icon">🕐</div>
+          <h4>Hours</h4>
+          <p>Mon–Fri: 8am–6pm<br>Sat: 9am–3pm</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-img">Photo Placeholder</div>
+        <div>
+          <p class="section-label">Our Story</p>
+          <h2>{{BUSINESS_NAME}}</h2>
+          <p>{{ABOUT_COPY}}</p>
+          <p class="owner-sig">— Dr. {{OWNER_NAME}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>{{BUSINESS_NAME}}</h3>
+          <p>{{TAGLINE}}</p>
+          <p style="margin-top:12px;">{{ADDRESS}}<br>{{CITY}}, {{STATE}}</p>
+          <p style="margin-top:8px; font-size:14px;">🚨 Emergency: {{EMERGENCY_LINE}}</p>
+          <div class="footer-social">
+            <a href="{{SOCIAL_INSTAGRAM}}" aria-label="Instagram">📷</a>
+            <a href="{{SOCIAL_FACEBOOK}}" aria-label="Facebook">👍</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#services">Wellness Exams</a></li>
+            <li><a href="#services">Vaccinations</a></li>
+            <li><a href="#services">Surgery</a></li>
+            <li><a href="#services">Dental Care</a></li>
+            <li><a href="#services">Emergencies</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="#vets">Our Vets</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="{{CTA_PRIMARY_URL}}">Book Appointment</a></li>
+            <li><a href="tel:{{PHONE}}">{{PHONE}}</a></li>
+            <li><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>{{FOOTER_COPY}}</span>
+        <span>{{ADDRESS}}, {{CITY}}, {{STATE}}</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
