@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', serif;
+      --font-body: '{{FONT_BODY}}', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-bg);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* NAV */
+    nav {
+      background: #fff;
+      padding: 0 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      box-shadow: 0 1px 0 #eaeaea;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .nav-logo img { height: 46px; width: auto; }
+
+    .nav-logo-text {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      color: var(--color-primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    .nav-links a {
+      font-size: .9rem;
+      font-weight: 600;
+      color: #444;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--color-primary); }
+
+    .nav-cta {
+      background: var(--color-primary);
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-weight: 700 !important;
+    }
+
+    /* HERO */
+    .hero {
+      background: var(--color-primary);
+      color: #fff;
+      padding: 80px 5%;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 60px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-headshot { display: none; }
+    }
+
+    .hero-tag {
+      font-family: var(--font-body);
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.82);
+      max-width: 500px;
+      margin-bottom: 36px;
+      line-height: 1.8;
+    }
+
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 44px;
+    }
+
+    .btn-gold {
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 13px 28px;
+      border-radius: 4px;
+      display: inline-block;
+      transition: opacity .2s;
+    }
+    .btn-gold:hover { opacity: .88; }
+
+    .btn-outline-white {
+      border: 2px solid rgba(255,255,255,.4);
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: .95rem;
+      padding: 13px 28px;
+      border-radius: 4px;
+      display: inline-block;
+      transition: border-color .2s;
+    }
+    .btn-outline-white:hover { border-color: var(--color-secondary); }
+
+    .hero-credentials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .credential-chip {
+      background: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.9);
+      font-size: .82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    /* AGENT HEADSHOT */
+    .hero-headshot {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .headshot-frame {
+      width: 280px;
+      height: 340px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 4px solid rgba(255,255,255,.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+    }
+
+    .headshot-frame .img-placeholder {
+      width: 100%;
+      height: 100%;
+      min-height: 340px;
+      border-radius: 0;
+      background: #2e4060;
+      color: rgba(255,255,255,.4);
+      font-size: 13px;
+    }
+
+    .headshot-name {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      color: #fff;
+      text-align: center;
+    }
+
+    .headshot-title {
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      text-align: center;
+    }
+
+    /* STATS STRIP */
+    .stats-strip {
+      background: var(--color-secondary);
+      padding: 24px 5%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 48px;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-item strong {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .stat-item span {
+      font-size: .82rem;
+      color: rgba(255,255,255,.75);
+      font-weight: 600;
+      letter-spacing: .5px;
+    }
+
+    /* ABOUT AGENT */
+    .about {
+      padding: 80px 5%;
+      background: #fff;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .about { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .section-eyebrow {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      color: var(--color-primary);
+      line-height: 1.35;
+      margin-bottom: 24px;
+    }
+
+    .about-text p {
+      color: #555;
+      margin-bottom: 16px;
+      line-height: 1.85;
+      font-size: .97rem;
+    }
+
+    .credentials-list {
+      list-style: none;
+      margin-top: 24px;
+    }
+
+    .credentials-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: .9rem;
+      color: #444;
+    }
+
+    .credentials-list li:last-child { border-bottom: none; }
+
+    .credentials-list li::before {
+      content: '✓';
+      color: var(--color-secondary);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* LISTINGS */
+    .listings {
+      padding: 80px 5%;
+      background: var(--color-bg);
+    }
+
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+
+    .listing-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .listing-card:hover { transform: translateY(-4px); box-shadow: 0 10px 32px rgba(0,0,0,.12); }
+
+    .listing-img .img-placeholder {
+      min-height: 210px;
+      border-radius: 0;
+      background: #cdd8e3;
+      color: #6b8caa;
+    }
+
+    .listing-badge {
+      position: relative;
+      margin-top: -30px;
+      margin-left: 16px;
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 3px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .listing-body { padding: 18px 20px 24px; }
+
+    .listing-price {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 6px;
+    }
+
+    .listing-address {
+      font-size: .9rem;
+      color: #666;
+      margin-bottom: 14px;
+    }
+
+    .listing-specs {
+      display: flex;
+      gap: 16px;
+      font-size: .85rem;
+      color: #888;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 14px;
+    }
+
+    .listing-spec { display: flex; align-items: center; gap: 5px; }
+
+    .listing-link {
+      display: block;
+      margin-top: 16px;
+      text-align: center;
+      background: var(--color-primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: .88rem;
+      padding: 10px;
+      border-radius: 4px;
+      transition: opacity .2s;
+    }
+    .listing-link:hover { opacity: .88; }
+
+    /* BUYER/SELLER RESOURCES */
+    .resources {
+      padding: 80px 5%;
+      background: #fff;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 700px) {
+      .resources-grid { grid-template-columns: 1fr; }
+    }
+
+    .resource-card {
+      background: var(--color-bg);
+      border-radius: 10px;
+      padding: 36px 32px;
+      border-top: 4px solid var(--color-primary);
+    }
+
+    .resource-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 14px;
+    }
+
+    .resource-list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+
+    .resource-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: .9rem;
+      color: #555;
+      border-bottom: 1px solid #ebebeb;
+    }
+
+    .resource-list li:last-child { border-bottom: none; }
+
+    .resource-list li::before {
+      content: '→';
+      color: var(--color-secondary);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .resource-card .btn-primary {
+      background: var(--color-primary);
+      color: #fff;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .9rem;
+      padding: 11px 24px;
+      border-radius: 4px;
+      display: inline-block;
+      transition: opacity .2s;
+    }
+    .resource-card .btn-primary:hover { opacity: .88; }
+
+    /* CONTACT CTA */
+    .contact-cta {
+      padding: 80px 5%;
+      background: var(--color-primary);
+      color: #fff;
+      text-align: center;
+    }
+
+    .contact-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .contact-cta p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.82);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .contact-form-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .contact-form-inline input {
+      flex: 1;
+      min-width: 180px;
+      padding: 13px 18px;
+      border: none;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: .95rem;
+      color: #333;
+    }
+    .contact-form-inline input:focus { outline: 2px solid var(--color-secondary); }
+
+    .contact-form-inline button {
+      background: var(--color-secondary);
+      color: #fff;
+      border: none;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: .95rem;
+      padding: 13px 28px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: opacity .2s;
+      white-space: nowrap;
+    }
+    .contact-form-inline button:hover { opacity: .88; }
+
+    /* TESTIMONIALS */
+    .testimonials {
+      padding: 80px 5%;
+      background: var(--color-bg);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .testimonial-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 32px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 16px;
+      left: 24px;
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      color: var(--color-secondary);
+      opacity: .15;
+      line-height: 1;
+    }
+
+    .testimonial-stars { color: #f5a623; font-size: .95rem; margin-bottom: 12px; }
+    .testimonial-text { font-size: .93rem; color: #555; line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-author-name { font-weight: 700; font-size: .9rem; color: var(--color-primary); }
+    .testimonial-author-detail { font-size: .8rem; color: #999; }
+
+    /* FOOTER */
+    footer {
+      background: var(--color-primary);
+      color: rgba(255,255,255,.65);
+      padding: 64px 5% 32px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    .footer-brand h2 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .footer-brand p { font-size: .88rem; line-height: 1.75; margin-bottom: 20px; }
+
+    .footer-social { display: flex; gap: 10px; }
+
+    .social-link {
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,.12);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: .8rem;
+      font-weight: 700;
+      transition: background .2s;
+    }
+    .social-link:hover { background: var(--color-secondary); }
+
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { font-size: .88rem; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--color-secondary); }
+
+    .footer-contact-item {
+      display: flex;
+      gap: 10px;
+      font-size: .88rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.12);
+      padding-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: .8rem;
+    }
+
+    .img-placeholder {
+      background: #cdd8e3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b8caa;
+      font-size: 13px;
+      min-height: 200px;
+      border-radius: 8px;
+      font-family: var(--font-body);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span class="nav-logo-text" style="display:none">{{BUSINESS_NAME}}</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#">Listings</a></li>
+      <li><a href="#">Buy</a></li>
+      <li><a href="#">Sell</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#contact" class="nav-cta">Schedule a Call</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Your Local Real Estate Expert</div>
+      <h1>{{HERO_HEADLINE}}</h1>
+      <p>{{HERO_SUBTEXT}}</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn-gold">{{CTA_PRIMARY_TEXT}}</a>
+        <a href="tel:{{PHONE}}" class="btn-outline-white">Call {{PHONE}}</a>
+      </div>
+      <div class="hero-credentials">
+        {{AGENT_CREDENTIALS}}
+      </div>
+    </div>
+    <div class="hero-headshot">
+      <div class="headshot-frame">
+        <div class="img-placeholder" style="min-height:340px; border-radius:0; background:#2e4060; color:rgba(255,255,255,.3);">Agent Headshot</div>
+      </div>
+      <div class="headshot-name">{{OWNER_NAME}}</div>
+      <div class="headshot-title">Licensed Real Estate Agent</div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <strong>$50M+</strong>
+      <span>In Closed Transactions</span>
+    </div>
+    <div class="stat-item">
+      <strong>200+</strong>
+      <span>Homes Sold</span>
+    </div>
+    <div class="stat-item">
+      <strong>15+</strong>
+      <span>Years Experience</span>
+    </div>
+    <div class="stat-item">
+      <strong>5★</strong>
+      <span>Client Rating</span>
+    </div>
+  </div>
+
+  <!-- ABOUT THE AGENT -->
+  <section>
+    <div class="about">
+      <div>
+        <div class="img-placeholder" style="min-height:420px; border-radius:10px; background:#cdd8e3;">Agent / Office Photo</div>
+      </div>
+      <div class="about-text">
+        <div class="section-eyebrow">About {{OWNER_NAME}}</div>
+        <h2 class="section-title">A Trusted Partner for Every Transaction</h2>
+        <p>{{ABOUT_COPY}}</p>
+        <ul class="credentials-list">
+          {{AGENT_CREDENTIALS}}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRENT LISTINGS -->
+  <section class="listings">
+    <div class="section-eyebrow">Featured Properties</div>
+    <h2 class="section-title">Current Listings</h2>
+    <div class="listings-grid">
+      {{LISTINGS_HTML}}
+    </div>
+  </section>
+
+  <!-- BUYER/SELLER RESOURCES -->
+  <section class="resources">
+    <div class="section-eyebrow">Resources</div>
+    <h2 class="section-title">Buyer &amp; Seller Guides</h2>
+    <div class="resources-grid">
+      <div class="resource-card">
+        <h3>🏠 Buying a Home</h3>
+        <ul class="resource-list">
+          <li>Get pre-approved and know your budget</li>
+          <li>Understand the local market conditions</li>
+          <li>Make a competitive, informed offer</li>
+          <li>Navigate inspections and closing</li>
+        </ul>
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-primary">Start Your Search →</a>
+      </div>
+      <div class="resource-card">
+        <h3>💰 Selling Your Home</h3>
+        <ul class="resource-list">
+          <li>Get an accurate, no-obligation home valuation</li>
+          <li>Professional photography and marketing</li>
+          <li>Negotiation expertise on your side</li>
+          <li>Seamless closing coordination</li>
+        </ul>
+        <a href="{{CTA_PRIMARY_URL}}" class="btn-primary">Get Home Value →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT CTA -->
+  <section class="contact-cta" id="contact">
+    <h2>Ready to Make Your Move?</h2>
+    <p>Whether buying or selling, {{OWNER_NAME}} will guide you through every step. Schedule a free, no-pressure consultation today.</p>
+    <form class="contact-form-inline" name="contact" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <button type="submit">Schedule a Call →</button>
+    </form>
+    <p style="margin-top:18px; font-size:.88rem; color:rgba(255,255,255,.55);">Or email directly: <a href="mailto:{{EMAIL}}" style="color:var(--color-secondary); text-decoration:underline;">{{EMAIL}}</a></p>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-eyebrow">Client Testimonials</div>
+    <h2 class="section-title">What Clients Are Saying</h2>
+    <div class="testimonials-grid">
+      {{REVIEWS_BLOCK}}
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h2>{{BUSINESS_NAME}}</h2>
+        <p>{{TAGLINE}} — Serving {{CITY}}, {{STATE}} and surrounding communities with integrity and expertise.</p>
+        <div class="footer-social">
+          <a href="{{SOCIAL_INSTAGRAM}}" class="social-link" aria-label="Instagram">IG</a>
+          <a href="{{SOCIAL_FACEBOOK}}" class="social-link" aria-label="Facebook">FB</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Current Listings</a></li>
+          <li><a href="#">Buyer Resources</a></li>
+          <li><a href="#">Seller Resources</a></li>
+          <li><a href="#">Market Reports</a></li>
+          <li><a href="#">About {{OWNER_NAME}}</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="footer-contact-item">
+          <span>📞</span>
+          <a href="tel:{{PHONE}}">{{PHONE}}</a>
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span>
+          <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        </div>
+        <div class="footer-contact-item">
+          <span>📍</span>
+          <span>{{ADDRESS}}, {{CITY}}, {{STATE}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>{{FOOTER_COPY}}</span>
+      <span>Licensed Real Estate Agent | {{STATE}} DRE # 00000000</span>
+    </div>
+  </footer>
+
+<!-- slot:SERVICES_LIST --><template id="services-list-data" style="display:none">{{SERVICES_LIST}}</template>
+</body>
+</html>
