@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{META_TITLE}}</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: {{COLOR_PRIMARY}};
+      --color-secondary: {{COLOR_SECONDARY}};
+      --color-bg: {{COLOR_BG}};
+      --font-heading: '{{FONT_HEADING}}', sans-serif;
+      --font-body: '{{FONT_BODY}}', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: #444;
+      line-height: 1.75;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 76px;
+      background: rgba(248,245,240,0.97);
+      border-bottom: 1px solid rgba(122,158,126,0.18);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .nav-logo span {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: var(--color-primary);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.84rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #666;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--color-primary); }
+
+    .nav-consult {
+      background: var(--color-primary) !important;
+      color: #fff !important;
+      padding: 10px 24px !important;
+      border-radius: 4px !important;
+    }
+
+    .nav-consult:hover { background: #6a8e6e !important; }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: 76px;
+      position: relative;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #c8ddc9 0%, #b5cbb8 50%, #a8c4b8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7a9e7e;
+      font-size: 15px;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(60,80,62,0.45) 0%, rgba(40,60,42,0.6) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      padding: 80px 24px;
+      color: #fff;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-heading);
+      font-size: 0.72rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .hero-content h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.18;
+      color: #fff;
+      margin-bottom: 22px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-content h1 strong {
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .hero-content p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 40px;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-sage {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 44px;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+      margin-right: 14px;
+    }
+
+    .btn-sage:hover { background: #b89e76; transform: translateY(-1px); }
+
+    .btn-outline-white {
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 15px 40px;
+      border-radius: 4px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 88px 24px; }
+    .section-inner { max-width: 1080px; margin: 0 auto; }
+
+    .section-label {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.9rem, 3.2vw, 2.9rem);
+      font-weight: 300;
+      color: var(--color-primary);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .section-title strong { font-weight: 700; }
+
+    .section-divider {
+      width: 44px;
+      height: 2px;
+      background: var(--color-secondary);
+      margin-bottom: 36px;
+    }
+
+    /* ── TREATMENTS ── */
+    .treatments-section { background: #fff; }
+
+    .treatments-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 44px;
+    }
+
+    .treatment-card {
+      border: 1px solid #e8e0d8;
+      border-radius: 8px;
+      padding: 32px 28px;
+      position: relative;
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: var(--color-bg);
+    }
+
+    .treatment-card:hover { box-shadow: 0 8px 32px rgba(122,158,126,0.12); transform: translateY(-3px); }
+
+    .treatment-icon {
+      width: 52px; height: 52px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .treatment-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    .treatment-card p {
+      font-size: 0.88rem;
+      color: #777;
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .treatment-price {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-secondary);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── WHY CHOOSE US ── */
+    .why-section { background: var(--color-bg); }
+
+    .why-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      margin-top: 50px;
+    }
+
+    .why-item {
+      text-align: center;
+      padding: 40px 24px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+
+    .why-icon {
+      width: 72px; height: 72px;
+      background: var(--color-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 22px;
+      font-size: 28px;
+      color: #fff;
+    }
+
+    .why-item h3 {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 10px;
+    }
+
+    .why-item p { font-size: 0.9rem; color: #777; line-height: 1.65; }
+
+    /* ── BEFORE/AFTER ── */
+    .ba-section { background: #fff; }
+
+    .ba-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 44px;
+    }
+
+    .ba-set { }
+
+    .ba-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+
+    .ba-img {
+      height: 180px;
+      background: #d8e8d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8aaa8a;
+      font-size: 11px;
+      position: relative;
+    }
+
+    .ba-img.after { background: #c8dcc8; }
+
+    .ba-tag {
+      position: absolute;
+      bottom: 6px; left: 6px;
+      background: rgba(60,80,62,0.75);
+      color: #fff;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+
+    .ba-treatment-name {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      letter-spacing: 0.06em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    /* ── CONSULTATION CTA ── */
+    .consult-cta {
+      background: var(--color-primary);
+      text-align: center;
+      padding: 88px 24px;
+    }
+
+    .consult-cta h2 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.9rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .consult-cta h2 strong { font-weight: 700; }
+
+    .consult-cta p {
+      font-size: 1rem;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 38px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-light-sage {
+      display: inline-block;
+      background: var(--color-secondary);
+      color: #fff;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.88rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 16px 46px;
+      border-radius: 4px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-light-sage:hover { background: #b89e76; transform: translateY(-1px); }
+
+    /* ── STAFF CREDENTIALS ── */
+    .staff-section { background: var(--color-bg); }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 44px;
+    }
+
+    .staff-card {
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 18px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+
+    .staff-card:hover { transform: translateY(-4px); }
+
+    .staff-photo {
+      height: 240px;
+      background: #d8e8d8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8aaa8a;
+      font-size: 13px;
+    }
+
+    .staff-body {
+      padding: 24px;
+      border-top: 3px solid var(--color-secondary);
+    }
+
+    .staff-body h3 {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--color-primary);
+      margin-bottom: 4px;
+    }
+
+    .staff-title {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .staff-creds {
+      list-style: none;
+    }
+
+    .staff-creds li {
+      font-size: 0.85rem;
+      color: #666;
+      padding: 5px 0;
+      border-bottom: 1px solid #f0ece8;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .staff-creds li::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: var(--color-secondary);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .staff-creds li:last-child { border-bottom: none; }
+
+    /* ── REVIEWS ── */
+    .reviews-section { background: #fff; }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      margin-top: 40px;
+    }
+
+    .rev-card {
+      background: var(--color-bg);
+      border-radius: 8px;
+      padding: 30px 26px;
+      border-left: 3px solid var(--color-secondary);
+      transition: box-shadow 0.2s;
+    }
+
+    .rev-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+
+    .rev-stars { color: var(--color-secondary); font-size: 0.9rem; letter-spacing: 3px; margin-bottom: 14px; }
+
+    .rev-text {
+      font-size: 0.93rem;
+      color: #555;
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .rev-author { font-size: 0.82rem; font-weight: 700; color: var(--color-primary); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #2a3c2c;
+      color: rgba(255,255,255,0.65);
+      padding: 60px 24px 28px;
+    }
+
+    .footer-inner { max-width: 1080px; margin: 0 auto; }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 44px;
+    }
+
+    .footer-brand-name {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-heading);
+      font-size: 0.7rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 16px;
+    }
+
+    .footer-col a, .footer-col p {
+      display: block;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.58);
+      text-decoration: none;
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .footer-col a:hover { color: var(--color-secondary); }
+
+    .footer-social { display: flex; gap: 10px; margin-top: 18px; }
+
+    .soc-link {
+      padding: 7px 16px;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.55);
+      font-size: 0.8rem;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .soc-link:hover { border-color: var(--color-secondary); color: var(--color-secondary); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 22px;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.32);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .treatments-grid, .why-strip, .staff-grid, .ba-layout { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      nav { padding: 0 20px; }
+    }
+
+    @media (max-width: 600px) {
+      .treatments-grid, .why-strip, .staff-grid, .ba-layout, .reviews-grid { grid-template-columns: 1fr; }
+      .nav-links .hide-mobile { display: none; }
+      section { padding: 56px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+      <span style="display:none">{{BUSINESS_NAME}}</span>
+    </a>
+    <ul class="nav-links">
+      <li class="hide-mobile"><a href="#treatments">Treatments</a></li>
+      <li class="hide-mobile"><a href="#why">Why Us</a></li>
+      <li class="hide-mobile"><a href="#staff">Our Team</a></li>
+      <li class="hide-mobile"><a href="#reviews">Reviews</a></li>
+      <li><a href="tel:{{PHONE}}" style="color:var(--color-primary)!important;font-weight:700;">{{PHONE}}</a></li>
+      <li><a href="{{CTA_PRIMARY_URL}}" class="nav-consult">Free Consult</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">Photo Placeholder — Spa / Wellness Aesthetic</div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">{{TAGLINE}}</p>
+      <h1>{{HERO_HEADLINE}}</h1>
+      <p>{{HERO_SUBTEXT}}</p>
+      <a href="{{CTA_PRIMARY_URL}}" class="btn-sage">{{CTA_PRIMARY_TEXT}}</a>
+      <a href="tel:{{PHONE}}" class="btn-outline-white">{{PHONE}}</a>
+    </div>
+  </section>
+
+  <!-- TREATMENTS -->
+  <section class="treatments-section" id="treatments">
+    <div class="section-inner">
+      <p class="section-label">What We Offer</p>
+      <h2 class="section-title">Our <strong>Treatments</strong></h2>
+      <div class="section-divider"></div>
+      <div class="treatments-grid">
+        {{TREATMENTS_HTML}}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-section" id="why">
+    <div class="section-inner">
+      <div style="text-align:center; max-width:560px; margin:0 auto 10px;">
+        <p class="section-label">The Difference</p>
+        <h2 class="section-title">Why <strong>Choose Us</strong></h2>
+        <div class="section-divider" style="margin:14px auto 0;"></div>
+      </div>
+      <div class="why-strip">
+        <div class="why-item">
+          <div class="why-icon">&#10004;</div>
+          <h3>Board-Certified Providers</h3>
+          <p>Every treatment is performed or supervised by a licensed medical professional with advanced training in aesthetic procedures.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">&#9733;</div>
+          <h3>Personalized Plans</h3>
+          <p>We create tailored treatment protocols for your unique skin type, concerns, and goals — not a one-size-fits-all approach.</p>
+        </div>
+        <div class="why-item">
+          <div class="why-icon">&#10006;</div>
+          <h3>Safety First</h3>
+          <p>FDA-cleared technology, premium medical-grade products, and rigorous safety protocols ensure the best outcomes with minimal risk.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEFORE/AFTER -->
+  <section class="ba-section" id="gallery">
+    <div class="section-inner">
+      <p class="section-label">Real Results</p>
+      <h2 class="section-title">Before &amp; <strong>After</strong></h2>
+      <div class="section-divider"></div>
+      <div class="ba-layout">
+        <div class="ba-set">
+          <div class="ba-images">
+            <div class="ba-img">Photo Placeholder<span class="ba-tag">Before</span></div>
+            <div class="ba-img after">Photo Placeholder<span class="ba-tag">After</span></div>
+          </div>
+          <p class="ba-treatment-name">Skin Rejuvenation</p>
+        </div>
+        <div class="ba-set">
+          <div class="ba-images">
+            <div class="ba-img">Photo Placeholder<span class="ba-tag">Before</span></div>
+            <div class="ba-img after">Photo Placeholder<span class="ba-tag">After</span></div>
+          </div>
+          <p class="ba-treatment-name">Laser Treatment</p>
+        </div>
+        <div class="ba-set">
+          <div class="ba-images">
+            <div class="ba-img">Photo Placeholder<span class="ba-tag">Before</span></div>
+            <div class="ba-img after">Photo Placeholder<span class="ba-tag">After</span></div>
+          </div>
+          <p class="ba-treatment-name">Body Contouring</p>
+        </div>
+      </div>
+      <p style="text-align:center; margin-top:24px; font-size:0.78rem; color:#999; letter-spacing:0.04em;">Individual results may vary. Photos shown with client consent.</p>
+    </div>
+  </section>
+
+  <!-- CONSULTATION CTA -->
+  <section class="consult-cta" id="consult">
+    <h2>Start Your <strong>Journey Today</strong></h2>
+    <p>Schedule a complimentary consultation and discover which treatments are right for you. No pressure, no obligation.</p>
+    <a href="{{CTA_PRIMARY_URL}}" class="btn-light-sage">{{CTA_PRIMARY_TEXT}}</a>
+  </section>
+
+  <!-- STAFF CREDENTIALS -->
+  <section class="staff-section" id="staff">
+    <div class="section-inner">
+      <p class="section-label">Our Team</p>
+      <h2 class="section-title">Expert <strong>Providers</strong></h2>
+      <div class="section-divider"></div>
+      <div class="staff-grid">
+        {{CREDENTIALS_HTML}}
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews-section" id="reviews">
+    <div class="section-inner">
+      <p class="section-label">Client Stories</p>
+      <h2 class="section-title">What Our <strong>Clients Say</strong></h2>
+      <div class="section-divider"></div>
+      <div class="reviews-grid">
+        {{REVIEWS_BLOCK}}
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section style="background:var(--color-bg); padding:80px 24px;" id="about">
+    <div class="section-inner">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;">
+        <div>
+          <p class="section-label">Our Practice</p>
+          <h2 class="section-title">About <strong>{{BUSINESS_NAME}}</strong></h2>
+          <div class="section-divider"></div>
+          {{ABOUT_COPY}}
+          <p style="font-family:var(--font-heading); font-size:1.15rem; font-weight:600; color:var(--color-primary); margin-top:24px; letter-spacing:0.04em;">— {{OWNER_NAME}}, Founder</p>
+        </div>
+        <div style="height:420px; background:#d8e8d8; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#8aaa8a; font-size:13px;">Photo Placeholder — Practice / Team</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <img src="{{LOGO_URL}}" alt="{{BUSINESS_NAME}}" style="height:40px; margin-bottom:12px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+          <div class="footer-brand-name">{{BUSINESS_NAME}}</div>
+          <p style="font-size:0.9rem; line-height:1.7; max-width:280px;">{{TAGLINE}}</p>
+          <div class="footer-social">
+            <a href="{{SOCIAL_INSTAGRAM}}" class="soc-link" target="_blank" rel="noopener">Instagram</a>
+            <a href="{{SOCIAL_FACEBOOK}}" class="soc-link" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Treatments</h4>
+          <a href="#treatments">View All Services</a>
+          <a href="#staff">Meet Our Team</a>
+          <a href="#gallery">Before &amp; After</a>
+          <a href="{{CTA_PRIMARY_URL}}">Book Consultation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p>{{ADDRESS}}</p>
+          <p>{{CITY}}, {{STATE}}</p>
+          <a href="tel:{{PHONE}}">{{PHONE}}</a>
+          <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>{{FOOTER_COPY}}</span>
+        <span>{{BUSINESS_NAME}} &mdash; {{CITY}}, {{STATE}}</span>
+      </div>
+    </div>
+  </footer>
+
+<!-- slot:SERVICES_LIST --><template id="services-list-data" style="display:none">{{SERVICES_LIST}}</template>
+</body>
+</html>
